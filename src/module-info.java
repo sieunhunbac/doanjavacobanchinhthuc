@@ -1,0 +1,9 @@
+/**
+ * 
+ */
+/**
+ * @author Hanabi
+ *
+ */
+module indexjavacoban {
+}
