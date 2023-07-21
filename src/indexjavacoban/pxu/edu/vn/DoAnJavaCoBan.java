@@ -1,7 +1,13 @@
 package indexjavacoban.pxu.edu.vn;
 
 import java.util.Scanner;
-
+import java.io.BufferedReader;
+import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 public class DoAnJavaCoBan {
 
 	public static void main(String[] args) {
@@ -13,12 +19,47 @@ public class DoAnJavaCoBan {
 		double[] soluong = new double[n];
 		double[] giaban = new double[n];
 		double[] thanhtien = new double[n];
-		nhapThongTinSanPham(masanpham, tensanpham, donvitinh, soluong, giaban);
-		thanhtien = tinhThanhTien(soluong, giaban);
-		inDanhSachSanPham(masanpham, tensanpham, donvitinh, soluong, giaban, thanhtien);
-		sapxepThanhTienGiamDan(masanpham, tensanpham, donvitinh, soluong, giaban, thanhtien);
-		sapxepGiaBanTangDan(masanpham, tensanpham, donvitinh, soluong, giaban, thanhtien);
-		timSanPhamTheoTen(masanpham, tensanpham, donvitinh, soluong, giaban, thanhtien);
+		char key;
+		do {
+			inMenu();
+			Scanner sc = new Scanner(System.in);
+			System.out.print("Ban chon chuc nang nao: ");
+			key = sc.next().charAt(0);
+			switch(key) {
+			case '1': 
+				nhapThongTinSanPham(masanpham, tensanpham, donvitinh, soluong, giaban);
+				break;
+			case '2':
+				inDanhSachSanPham(masanpham, tensanpham, donvitinh, soluong, giaban, thanhtien);
+				break;
+			case '3':
+				thanhtien = tinhThanhTien(soluong, giaban);
+				break;
+			case '4':
+				sapxepThanhTienGiamDan(masanpham, tensanpham, donvitinh, soluong, giaban, thanhtien);
+				break;
+			case '5':
+				sapxepGiaBanTangDan(masanpham, tensanpham, donvitinh, soluong, giaban, thanhtien);
+				break;
+			case '6':
+				timSanPhamTheoTen(masanpham, tensanpham, donvitinh, soluong, giaban, thanhtien);
+				break;
+			case '7':
+				luuFile(masanpham, tensanpham, donvitinh, soluong, giaban, thanhtien);
+				break;
+			case '8':
+				docFile();
+				break;
+			case 'Q':
+				System.out.println("!!!CHƯƠNG TRÌNH ĐÃ KẾT THÚC!!!");
+				System.exit(0);
+				break;
+			case 'q':
+				System.out.println("!!!CHƯƠNG TRÌNH ĐÃ KẾT THÚC!!!");
+				System.exit(0);
+				break;
+			}
+		}while(key == 'Q' || key == 'q');
 	}
 	//HÀM MENU CHÍNH
 	public static void inMenu() {
@@ -47,7 +88,7 @@ public class DoAnJavaCoBan {
 			return -1;
 		}
 	}
-
+	//HÀM NHẬP 
 	// HÀM NHẬP THÔNG TIN SẢN PHẨM
 	public static void nhapThongTinSanPham(String[] masanpham, String[] tensanpham, String[] donvitinh,
 			double[] soluong, double[] giaban) {
@@ -201,6 +242,34 @@ public static void sapxepGiaBanTangDan(String[] masanpham, String[] tensanpham, 
 			System.out.println("!!! ĐÃ XẢY RA LỖI TRONG QUÁ TRÌNH NHẬP DỮ LIỆU !!!");
 		}
 	}
+	public static void luuFile(String[] masanpham, String[] tensanpham, String[] donvitinh, double[] soluong,
+			double[] giaban, double[] thanhtien) {
+	    try {
+	        FileWriter fw = new FileWriter("D:\\LuuDoThuatToanDraw.io\\doanjavacoban.txt");
+	        for (int i = 0; i < masanpham.length; i++) {
+fw.write("Mã sản phẩm : "+masanpham[i] + "--Tên sản phẩm : " + tensanpham[i] + " -- Đơn vị tính: " + donvitinh[i] + " -- Số lượng: " + soluong[i] + " -- Giá bán : " +giaban[i] + "--Thành tiền : "+ thanhtien[i] +"\n");
+	        }
+	        fw.close();
+	        System.out.println("Đã xuất file thành công!");
+	    } catch (IOException e) {
+	        System.out.println("Đã sảy ra lỗi trong quá trình xuất file!");
+	    }
+	}
+
+	
+	public static void docFile() {
+	    try {
+	        BufferedReader br = new BufferedReader(new FileReader("D:\\LuuDoThuatToanDraw.io\\doanjavacoban.txt"));
+	        String line;
+	        while ((line = br.readLine()) != null) {
+	            System.out.println(line);
+	        }
+	        br.close();
+	        System.out.println("Đã nhập file thành công!");
+	    } catch (IOException e) {
+	        System.out.println("Đã sảy ra lỗi trong quá trình nhập file!");
+	    }
+}
 
 	}
 
